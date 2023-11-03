@@ -1,0 +1,74 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body {
+    background-color: lightgrey;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 800px;
+    max-width: 80%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px 2px;
+}
+
+.BTNgrid {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 10px;
+    margin: 20px 0;;
+}
+
+.BTN {
+    background-color: lightgrey;
+    border: 1px solid;
+    border-color: darkgrey;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.BTN:hover {
+    border-color: darkolivegreen;
+}
+
+.BTN.correct {
+    background-color: lightgreen;
+}
+
+.BTN.wrong {
+    background-color: lightsalmon;
+}
+
+.startBTN, .nextBTN {
+    font-size: 1.5rem;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#intro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+}
+
+.hide {
+    display: none;
+}
