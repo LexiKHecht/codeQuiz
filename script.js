@@ -13,80 +13,109 @@ var timerCount;
 
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
-  currentQuestionIndex++
-  setNextQuestion()
+    currentQuestionIndex++
+    setNextQuestion()
 })
 
 function startGame() {
     timerCount = 60;
-  intro.classList.add('hide')
-  startButton.classList.add('hide')
-  shuffledQuestions = questions.sort(() => Math.random() - .5)
-  currentQuestionIndex = 0
-  questionContainerElement.classList.remove('hide')
-  setNextQuestion()
-  startTimer()
+    intro.classList.add('hide')
+    startButton.classList.add('hide')
+    shuffledQuestions = questions.sort(() => Math.random() - .5)
+    currentQuestionIndex = 0
+    questionContainerElement.classList.remove('hide')
+    setNextQuestion()
+    startTimer()
 }
 
 function setNextQuestion() {
-  resetState()
-  showQuestion(shuffledQuestions[currentQuestionIndex])
+    resetState()
+    showQuestion(shuffledQuestions[currentQuestionIndex])
+}
+
+function showQuestion(question) {
+    questionElement.innerText = question.question
+    question.answers.forEach(answer => {
+        const button = document.createElement('button')
+        button.innerText = answer.text
+        button.classList.add('BTN')
+        if (answer.correct) {
+            button.dataset.correct = answer.correct
+        }
+        button.addEventListener('click', selectAnswer)
+        answerButtonsElement.appendChild(button)
+    })
+}
+
+function selectAnswer(e) {
+    const selectedButton = e.target
+    const correct = selectedButton.dataset.correct
+    setStatusClass(document.body, correct)
+    Array.from(answerButtonsElement.children).forEach(button => {
+        setStatusClass(button, button.dataset.correct)
+    })
+    if (shuffledQuestions.length > currentQuestionIndex + 1) {
+        nextButton.classList.remove('hide')
+    } else {
+        startButton.innerText = 'Restart'
+        startButton.classList.remove('hide')
+    }
 }
 
 
 function startTimer() {
-    timer = setInterval(function() {
-      timerCount--;
-      console.log(timerCount);
-      timerElement.textContent = timerCount;
+    timer = setInterval(function () {
+        timerCount--;
+        console.log(timerCount);
+        timerElement.textContent = timerCount;
     }, 1000);
 }
 
 
 const questions = [
     {
-      question: 'Commonly used git commands DO NOT include:',
-      answers: [
-        { text: 'Git copy', correct: true },
-        { text: 'Git pull', correct: false },
-        { text: 'Git init', correct: false },
-        { text: 'Git add', correct: false }
-      ]
+        question: 'Commonly used git commands DO NOT include:',
+        answers: [
+            { text: 'Git copy', correct: true },
+            { text: 'Git pull', correct: false },
+            { text: 'Git init', correct: false },
+            { text: 'Git add', correct: false }
+        ]
     },
     {
-      question: 'Which is the correct way to refer to an HTML class attribute in css?',
-      answers: [
-        { text: '#', correct: false },
-        { text: '{}', correct: false },
-        { text: '.', correct: true },
-        { text: '=', correct: false }
-      ]
+        question: 'Which is the correct way to refer to an HTML class attribute in css?',
+        answers: [
+            { text: '#', correct: false },
+            { text: '{}', correct: false },
+            { text: '.', correct: true },
+            { text: '=', correct: false }
+        ]
     },
     {
-      question: 'Arrays in Javascript can be used to store ______.',
-      answers: [
-        { text: 'Numbers & Strings', correct: false },
-        { text: 'Other Arrays', correct: false },
-        { text: 'Booleans', correct: false },
-        { text: 'All of the Above', correct: true }
-      ]
+        question: 'Arrays in Javascript can be used to store ______.',
+        answers: [
+            { text: 'Numbers & Strings', correct: false },
+            { text: 'Other Arrays', correct: false },
+            { text: 'Booleans', correct: false },
+            { text: 'All of the Above', correct: true }
+        ]
     },
     {
-      question: '______ is a popular coding API',
-      answers: [
-        { text: 'inQuire', correct: false },
-        { text: 'jQuery', correct: true },
-        { text: 'Google Engine', correct: false },
-        { text: 'Ball Python', correct: false }
-      ]
+        question: '______ is a popular coding API',
+        answers: [
+            { text: 'inQuire', correct: false },
+            { text: 'jQuery', correct: true },
+            { text: 'Google Engine', correct: false },
+            { text: 'Ball Python', correct: false }
+        ]
     },
     {
-      question: 'What elements are used to test for TRUE or False values stored in variables?',
-      answers: [
-        { text: 'Conditional Statements', correct: false },
-        { text: 'Console.logs', correct: false },
-        { text: 'Trigger Readers', correct: false },
-        { text: 'Comparison and Logical Operators', correct: true }
-      ]
+        question: 'What elements are used to test for TRUE or False values stored in variables?',
+        answers: [
+            { text: 'Conditional Statements', correct: false },
+            { text: 'Console.logs', correct: false },
+            { text: 'Trigger Readers', correct: false },
+            { text: 'Comparison and Logical Operators', correct: true }
+        ]
     }
-  ]
+]
