@@ -99,6 +99,39 @@
     font-size: large;
 }
 
+.input-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+label {
+    color: #212121;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 5px;
+  }
+
+input {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(212, 232, 179);
+    border-radius: 2px;
+    border-width: 0;
+    font-size: 1em;
+    height: 40px;
+    line-height: 20px;
+    margin: 0;
+    max-width: 100%;
+    padding: 8px 8px 8px 8px;
+    transition-delay: 0s, 0s;
+    transition-duration: 0.2s, 0.2s;
+    transition-property: background-color, color;
+    transition-timing-function: ease, ease;
+    vertical-align: middle;
+    width: 90%;
+  }
+
 .hide {
     display: none;
 }
