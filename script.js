@@ -1,4 +1,4 @@
-const intro = document.getElementById('intro')
+var intro = document.getElementById('intro')
 const userIn = document.querySelector(".input-group")
 var nameInput = document.getElementById("AH")
 const startButton = document.getElementById('startBTN')
@@ -9,6 +9,7 @@ const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answerBTNs')
 var timerElement = document.querySelector(".timer-text");
 
+let score = 0
 let shuffledQuestions, currentQuestionIndex
 var timer;
 var timerCount;
@@ -23,11 +24,12 @@ nextButton.addEventListener('click', () => {
 
 function startGame() {
     timerCount = 60;
-    intro.classList.add('hide')
+
     startButton.classList.add('hide')
     shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
     questionContainerElement.classList.remove('hide')
+    intro.innerHTML = ""
     setNextQuestion()
     startTimer()
 }
@@ -45,7 +47,7 @@ function showQuestion(question) {
         button.classList.add('BTN')
         if (answer.correct) {
             button.dataset.correct = answer.correct
-        } 
+        }
 
         button.addEventListener('click', selectAnswer)
         answerButtonsElement.appendChild(button)
@@ -63,6 +65,7 @@ function resetState() {
 function selectAnswer(e) {
     const selectedButton = e.target
     const correct = selectedButton.dataset.correct
+    keepScore(selectedButton, correct)
     setStatusClass(document.body, correct)
     Array.from(answerButtonsElement.children).forEach(button => {
         setStatusClass(button, button.dataset.correct)
@@ -78,18 +81,23 @@ function selectAnswer(e) {
 }
 
 function setStatusClass(element, correct) {
+
+   
     clearStatusClass(element)
     if (correct) {
         element.classList.add('correct')
-        winCounter+
-        setWins()
     } else {
-        element.classList.add('wrong') 
+        element.classList.add('wrong')
     }
-    // if (correct === 'wrong') {
-    //     timerCount -=1;
-    //     timerElement.textContent = timerCount;
-    // }
+}
+
+function keepScore(element, correct) {
+    if (correct) {
+        score++ 
+     } else {
+        timerCount -=5;
+     }
+
 }
 
 function clearStatusClass(element) {
@@ -97,24 +105,24 @@ function clearStatusClass(element) {
     element.classList.remove('wrong')
 }
 
-function setWins() {
-    localStorage.setItem("winCount", winCounter);
-    console.log(winCounter)
-  }
-
 function saveScore() {
-    
+
     var name = nameInput.value;
-console.log(name)
-        localStorage.setItem("initials", name)
+    console.log(name)
+    localStorage.setItem("initials", name)
+    localStorage.setItem("userScore", score)
+    console.log(score)
 }
 
 
 
 function startTimer() {
     timer = setInterval(function () {
+        if (timerCount <=0) {
+            clearInterval(timer)
+        } 
         timerCount--;
-        // console.log(timerCount);
+        
         timerElement.textContent = timerCount;
     }, 1000);
 }
@@ -167,6 +175,3 @@ const questions = [
         ]
     }
 ]
-
-// timerCount -=5;
-// timerElement.textContent = timerCount;
