@@ -1,19 +1,19 @@
-var intro = document.getElementById('intro')
+const intro = document.getElementById('intro')
 const userIn = document.querySelector(".input-group")
-var nameInput = document.getElementById("AH")
+const nameInput = document.getElementById("AH")
 const startButton = document.getElementById('startBTN')
 const nextButton = document.getElementById('nextBTN')
 const saveButton = document.getElementById('saveBTN')
 const questionContainerElement = document.getElementById('qCard')
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answerBTNs')
-var timerElement = document.querySelector(".timer-text");
+const timerElement = document.querySelector(".timer-text");
 
-let score = 0
+
 let shuffledQuestions, currentQuestionIndex
 var timer;
 var timerCount;
-var winCounter = 0;
+var score = 0
 
 saveButton.addEventListener('click', saveScore)
 startButton.addEventListener('click', startGame)
@@ -82,7 +82,7 @@ function selectAnswer(e) {
 
 function setStatusClass(element, correct) {
 
-   
+
     clearStatusClass(element)
     if (correct) {
         element.classList.add('correct')
@@ -93,10 +93,10 @@ function setStatusClass(element, correct) {
 
 function keepScore(element, correct) {
     if (correct) {
-        score++ 
-     } else {
-        timerCount -=5;
-     }
+        score++
+    } else {
+        timerCount -= 5;
+    }
 
 }
 
@@ -108,9 +108,10 @@ function clearStatusClass(element) {
 function saveScore() {
 
     var name = nameInput.value;
-    console.log(name)
+
     localStorage.setItem("initials", name)
     localStorage.setItem("userScore", score)
+    console.log(name)
     console.log(score)
 }
 
@@ -118,11 +119,11 @@ function saveScore() {
 
 function startTimer() {
     timer = setInterval(function () {
-        if (timerCount <=0) {
+        if (timerCount <= 0) {
             clearInterval(timer)
-        } 
+        }
         timerCount--;
-        
+
         timerElement.textContent = timerCount;
     }, 1000);
 }
