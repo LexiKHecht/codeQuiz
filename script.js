@@ -57,6 +57,8 @@ function showQuestion(question) {
 function resetState() {
     clearStatusClass(document.body)
     nextButton.classList.add('hide')
+    userIn.classList.add('hide')
+    saveButton.classList.add('hide')
     while (answerButtonsElement.firstChild) {
         answerButtonsElement.removeChild(answerButtonsElement.firstChild)
     }
@@ -77,6 +79,7 @@ function selectAnswer(e) {
         startButton.classList.remove('hide')
         saveButton.classList.remove('hide')
         userIn.classList.remove('hide')
+        
     }
 }
 
